@@ -13,4 +13,8 @@ typedef enum {
 
 typedef enum { FPM_SUBMENU_VIEW } FPMView;
 
+void (*const fpm_scene_on_enter_handlers[])(void*) = {fpm_scene_main_on_enter};
+void (*const fpm_scene_on_event_handlers[])(void*) = {fpm_scene_main_on_event};
+void (*const fpm_scene_on_exit_handlers[])(void*) = {fpm_scene_main_on_exit};
+
 #endif
