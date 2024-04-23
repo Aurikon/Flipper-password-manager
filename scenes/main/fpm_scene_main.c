@@ -2,7 +2,7 @@
 #include "../../flipper_password_manager.h"
 
 void fpm_scene_main_on_enter(void* context) {
-    PasswordManagerState* state = context;
+    PasswordManagerState* state = (PasswordManagerState*)context;
 
     submenu_reset(state->submenu);
     submenu_set_header(state->submenu, "Password Manager");
@@ -24,13 +24,19 @@ void fpm_scene_main_on_enter(void* context) {
 bool fpm_scene_main_on_event(void* context, SceneManagerEvent event) {
     // TODO
     UNUSED(context);
-    UNUSED(event);
-    return true;
+    switch(event.type) {
+    case SceneManagerEventTypeBack:
+        return false;
+
+    default:
+        break;
+    }
+    return false;
 }
 
 void fpm_scene_main_on_exit(void* context) {
-    // TODO
-    UNUSED(context);
+    PasswordManagerState* state = (PasswordManagerState*)context;
+    submenu_reset(state->submenu);
 }
 
 void fpm_scene_main_callback(void* context, uint32_t index) {
