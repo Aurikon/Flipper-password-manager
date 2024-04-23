@@ -3,13 +3,6 @@
 #include <furi.h>
 #include <gui/gui.h>
 
-typedef struct {
-    Gui* gui;
-    SceneManager* scene_manager;
-    ViewDispatcher* view_dispatcher;
-    Submenu* submenu;
-} PasswordManagerState;
-
 static const SceneManagerHandlers fpm_scene_manager_handlers = {
     .on_enter_handlers = fpm_scene_on_enter_handlers,
     .on_event_handlers = fpm_scene_on_event_handlers,
