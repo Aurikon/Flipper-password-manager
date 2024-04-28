@@ -10,6 +10,7 @@ void fpm_scene_main_on_exit(void* context);
 
 void fpm_scene_main_callback(void* context, uint32_t index);
 
-typedef enum { FPM_MENU_ADD_PASSWORD_INDEX, FPM_MENU_READ_PASSWROD_INDEX } FPMMenuIndex;
+typedef enum { FPM_MENU_ADD_PASSWORD_INDEX, FPM_MENU_READ_PASSWRODS_INDEX } FPMMenuIndex;
+typedef enum { FPM_MENU_ADD_PASSWORD_EVENT, FPM_MENU_READ_PASSWORDS_EVENT } FPMMenuEvent;
 
 #endif
