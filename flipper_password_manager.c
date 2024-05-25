@@ -28,10 +28,6 @@ PasswordManagerState* alloc_state() {
 
     state->text_input = text_input_alloc();
 
-    state->last_added_password_name_len = 50;
-    state->last_added_password_name =
-        malloc(state->last_added_password_name_len * sizeof(uint8_t));
-
     state->view_dispatcher = view_dispatcher_alloc();
     view_dispatcher_enable_queue(state->view_dispatcher);
     view_dispatcher_set_event_callback_context(state->view_dispatcher, state);
@@ -45,6 +41,8 @@ PasswordManagerState* alloc_state() {
 
     state->gui = furi_record_open(RECORD_GUI);
 
+    state->storage = furi_record_open(RECORD_STORAGE); // better open when save and read
+
     return state;
 }
 
@@ -54,6 +52,7 @@ void free_state(PasswordManagerState* state) {
     view_dispatcher_free(state->view_dispatcher);
     text_input_free(state->text_input);
     submenu_free(state->submenu);
+    furi_record_close(RECORD_STORAGE); // better close when save and read
     free(state);
 }
 

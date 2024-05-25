@@ -30,7 +30,7 @@ bool fpm_scene_main_on_event(void* context, SceneManagerEvent event) {
     case SceneManagerEventTypeCustom:
         switch(event.event) {
         case FPM_MENU_ADD_PASSWORD_EVENT:
-            scene_manager_next_scene(state->scene_manager, FPM_ADD_PASSWORD_SCENE);
+            scene_manager_next_scene(state->scene_manager, FPM_ADD_PASSWORD_NAME_SCENE);
             consumed = true;
             break;
 
