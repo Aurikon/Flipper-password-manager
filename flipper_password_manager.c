@@ -27,6 +27,7 @@ PasswordManagerState* alloc_state() {
     state->submenu = submenu_alloc();
 
     state->text_input = text_input_alloc();
+    state->widget = widget_alloc();
 
     state->view_dispatcher = view_dispatcher_alloc();
     view_dispatcher_enable_queue(state->view_dispatcher);
@@ -38,10 +39,13 @@ PasswordManagerState* alloc_state() {
         state->view_dispatcher, FPM_SUBMENU_VIEW, submenu_get_view(state->submenu));
     view_dispatcher_add_view(
         state->view_dispatcher, FPM_INPUT_TEXT_VIEW, text_input_get_view(state->text_input));
+    view_dispatcher_add_view(
+        state->view_dispatcher, FPM_WIDGET_VIEW, widget_get_view(state->widget));
 
     state->gui = furi_record_open(RECORD_GUI);
 
     state->storage = furi_record_open(RECORD_STORAGE); // better open when save and read
+    state->dialogs = furi_record_open(RECORD_DIALOGS);
 
     return state;
 }
@@ -51,8 +55,10 @@ void free_state(PasswordManagerState* state) {
     scene_manager_free(state->scene_manager);
     view_dispatcher_free(state->view_dispatcher);
     text_input_free(state->text_input);
+    widget_free(state->widget);
     submenu_free(state->submenu);
     furi_record_close(RECORD_STORAGE); // better close when save and read
+    furi_record_close(RECORD_DIALOGS);
     free(state);
 }
 

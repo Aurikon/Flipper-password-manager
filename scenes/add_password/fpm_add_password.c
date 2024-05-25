@@ -17,7 +17,7 @@ void fpm_scene_add_password_name_on_enter(void* context) {
         state->text_input,
         fpm_add_password_name_callback,
         state,
-        state->last_added_password_name,
+        state->password_name,
         FPM_PASSWORD_SIZE,
         true);
     view_dispatcher_switch_to_view(state->view_dispatcher, FPM_INPUT_TEXT_VIEW);
@@ -54,7 +54,7 @@ void fpm_scene_add_password_on_enter(void* context) {
         state->text_input,
         fpm_add_password_callback,
         state,
-        state->last_added_password,
+        state->password,
         FPM_PASSWORD_SIZE,
         true);
     view_dispatcher_switch_to_view(state->view_dispatcher, FPM_INPUT_TEXT_VIEW);
@@ -66,8 +66,8 @@ bool fpm_scene_add_password_on_event(void* context, SceneManagerEvent event) {
     if(event.type == SceneManagerEventTypeCustom) {
         if(event.event == FPM_ADD_PASSWORD_SAVE_EVENT) {
             if(fpm_save_password(state)) {
-                memset(state->last_added_password_name, 0, FPM_PASSWORD_SIZE);
-                memset(state->last_added_password, 0, FPM_PASSWORD_SIZE);
+                memset(state->password_name, 0, FPM_PASSWORD_SIZE);
+                memset(state->password, 0, FPM_PASSWORD_SIZE);
                 scene_manager_search_and_switch_to_previous_scene(
                     state->scene_manager, FPM_MAIN_SCENE);
                 // TODO: Succes save scene
@@ -95,7 +95,7 @@ bool fpm_save_password(PasswordManagerState* state) {
     }
 
     FuriString* file_path = furi_string_alloc_set(FPM_FOLDER);
-    furi_string_cat_printf(file_path, "/%s%s", state->last_added_password_name, FPM_EXTENSION);
+    furi_string_cat_printf(file_path, "/%s%s", state->password_name, FPM_EXTENSION);
 
     FlipperFormat* ff = flipper_format_buffered_file_alloc(state->storage);
 
@@ -103,7 +103,7 @@ bool fpm_save_password(PasswordManagerState* state) {
         return false;
     }
 
-    if(!flipper_format_write_string_cstr(ff, "Password", state->last_added_password)) {
+    if(!flipper_format_write_string_cstr(ff, "Password", state->password)) {
         return false;
     }
 
