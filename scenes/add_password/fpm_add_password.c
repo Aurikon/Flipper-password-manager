@@ -66,7 +66,10 @@ bool fpm_scene_add_password_on_event(void* context, SceneManagerEvent event) {
     if(event.type == SceneManagerEventTypeCustom) {
         if(event.event == FPM_ADD_PASSWORD_SAVE_EVENT) {
             if(fpm_save_password(state)) {
-                text_input_reset(state->text_input); // for check, remove this later
+                memset(state->last_added_password_name, 0, FPM_PASSWORD_SIZE);
+                memset(state->last_added_password, 0, FPM_PASSWORD_SIZE);
+                scene_manager_search_and_switch_to_previous_scene(
+                    state->scene_manager, FPM_MAIN_SCENE);
                 // TODO: Succes save scene
             }
             consumed = true;
