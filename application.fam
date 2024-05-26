@@ -4,7 +4,10 @@ App(
     apptype=FlipperAppType.EXTERNAL,
     entry_point="flipper_password_manager_app",
     cdefines=["APP_FLIPPER_PASSWORD_MANAGER"],
+    requires=["gui"],
     fap_icon="flipper_password_manager.png",
     fap_category="Tools",
-    requires=["gui"],
+    fap_icon_assets="assets",
+    fap_author="@Aurikon",
+    fap_weburl="https://github.com/Aurikon/Flipper-password-manager",
 )

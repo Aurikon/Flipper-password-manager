@@ -4,12 +4,12 @@
 #include <applications/services/dialogs/dialogs.h>
 #include <flipper_format/flipper_format.h>
 #include <toolbox/path.h>
-#include <assets_icons.h>
+#include "flipper_password_manager_icons.h"
 
 bool fpm_select_and_load_password(PasswordManagerState* state) {
     DialogsFileBrowserOptions browser_options;
     bool succes = false;
-    dialog_file_browser_set_basic_options(&browser_options, FPM_EXTENSION, &I_ibutt_10px);
+    dialog_file_browser_set_basic_options(&browser_options, FPM_EXTENSION, &I_password_10x10);
     browser_options.base_path = FPM_FOLDER;
     FuriString* file_path = furi_string_alloc();
     if(furi_string_empty(file_path)) {
